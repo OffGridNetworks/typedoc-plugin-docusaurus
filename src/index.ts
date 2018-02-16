@@ -10,21 +10,21 @@ module.exports = (PluginHost: Application) => {
    * Expose additional options for consumption.
    */
   app.options.addDeclaration({
-    component: 'markdown',
-    help: 'Markdown Plugin: Suppress file sources from output.',
+    component: 'docusaurus',
+    help: 'Markdown Docusaurus Plugin: Suppress file sources from output.',
     name: 'mdHideSources',
     type: ParameterType.Boolean,
   });
 
   app.options.addDeclaration({
-    component: 'markdown',
-    help: 'Markdown Plugin: Markdown parser ie: "bitbucket"',
+    component: 'docusaurus',
+    help: 'Markdown Docusaurus Plugin: Markdown parser ie: "bitbucket"',
     name: 'mdFlavour',
     type: ParameterType.String,
   });
 
   app.options.addDeclaration({
-    component: 'markdown',
+    component: 'docusaurus',
     defaultValue: '',
     help: 'The repository to use for source files (ignored unless markdownFlavour is set)',
     name: 'mdSourceRepo',
@@ -34,6 +34,6 @@ module.exports = (PluginHost: Application) => {
   /**
    * Add the plugin to the converter instance
    */
-  app.converter.addComponent('markdown', MarkdownPlugin);
+  app.converter.addComponent('docusaurus', MarkdownPlugin);
 
 };

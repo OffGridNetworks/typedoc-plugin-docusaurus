@@ -10,7 +10,7 @@ import { MarkdownTheme } from './theme/';
 /**
  * Markdown plugin component that exposes the MarkdownTheme to the application.
  */
-@Component({ name: 'markdown' })
+@Component({ name: 'docusaurus' })
 export class MarkdownPlugin extends ConverterComponent {
 
   // the expected name of the theme

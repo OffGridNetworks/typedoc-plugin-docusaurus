@@ -1,5 +1,6 @@
+{{> metadata}}
 {{!-- {{ breadcrumbs }} --}}
-{{#unless model.hideBreadcrumbs}}[{{project.name}}](../README.md){{~#with model~}}{{> breadcrumb}}{{/with}}{{getNewLine}}{{/unless}}
+{{#unless model.hideBreadcrumbs}}[{{project.name}}](api-readme.md){{~#with model~}}{{> breadcrumb}}{{/with}}{{getNewLine}}{{/unless}}
 {{!-- {{ readme }} --}}
 {{~#if model.displayReadme ~}}
 {{{model.readme}}}
@@ -7,7 +8,7 @@
 {{getNewLine}}
 {{!-- {{ title }} --}}
 {{~#unless model.displayReadme ~}}
-# {{#unless model.isIndex }}{{model.kindString }}:{{/unless}} {{{ model.name }}}
+{{#unless model.isIndex }}## {{model.kindString }}{{/unless}}
 {{/unless}}
 {{#compact}}
 {{~#with model~}}

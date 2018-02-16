@@ -15,23 +15,11 @@ chai.use(chaiFiles);
 describe('Compile Default Markdown', () => {
 
   it('should compile index', () => {
-    expectFileToEqualMock('README.md', 'default');
+    expectFileToEqualMock('api-readme.md', 'default');
   });
 
   it('should compile modules', () => {
-    expectOutputFilesToEqualMocks('modules', 'default');
-  });
-
-  it('should compile classes', () => {
-    expectOutputFilesToEqualMocks('classes', 'default');
-  });
-
-  it('should compile interfaces', () => {
-    expectOutputFilesToEqualMocks('interfaces', 'default');
-  });
-
-  it('should compile enums', () => {
-    expectOutputFilesToEqualMocks('enums', 'default');
+    expectOutputFilesToEqualMocks( 'default');
   });
 
 });
@@ -39,23 +27,11 @@ describe('Compile Default Markdown', () => {
 describe('Compile Bitbucket Flavoured Markdown', () => {
 
   it('should compile index', () => {
-    expectFileToEqualMock('README.md', 'bitbucket');
+    expectFileToEqualMock('api-readme.md', 'bitbucket');
   });
 
-  it('should compile modules', () => {
-    expectOutputFilesToEqualMocks('modules', 'bitbucket');
-  });
-
-  it('should compile classes', () => {
-    expectOutputFilesToEqualMocks('classes', 'bitbucket');
-  });
-
-  it('should compile interfaces', () => {
-    expectOutputFilesToEqualMocks('interfaces', 'bitbucket');
-  });
-
-  it('should compile enums', () => {
-    expectOutputFilesToEqualMocks('enums', 'bitbucket');
+  it('should compile everything', () => {
+    expectOutputFilesToEqualMocks( 'bitbucket');
   });
 
 });
@@ -64,11 +40,11 @@ function expectFileToEqualMock(fileName, testNum) {
   expect(file(`${compiledDirRoot}/${testNum}/${fileName}`)).to.equal(file(`${expectedDirRoot}/${testNum}/${fileName}`));
 }
 
-function expectOutputFilesToEqualMocks(ref, testNum) {
-  const files = fs.readdirSync(path.join(__dirname, `/mocks/${testNum}/${ref}`));
+function expectOutputFilesToEqualMocks(testNum) {
+  const files = fs.readdirSync(path.join(__dirname, `/mocks/${testNum}`));
   files.forEach((filename) => {
-    if (!/^\..*/.test(filename)) {
-      expectFileToEqualMock(`${ref}/${filename}`, testNum);
+    if (/.*\.md$/.test(filename)) {
+      expectFileToEqualMock(`${filename}`, testNum);
     }
   });
 }

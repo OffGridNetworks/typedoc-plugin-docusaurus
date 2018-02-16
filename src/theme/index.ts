@@ -21,10 +21,12 @@ export class MarkdownTheme extends DefaultTheme {
   public static buildUrls(reflection: DeclarationReflection, urls: UrlMapping[]): UrlMapping[] {
 
     const mapping = DefaultTheme.getMapping(reflection);
+    reflection.name = reflection.name.replace(/^\"/, '[').replace(/\"$/, ' Module]');
+    reflection.kindString = reflection.kindString.replace(/External module/,'Module');
 
     if (mapping) {
       if (!reflection.url || !DefaultTheme.URL_PREFIX.test(reflection.url)) {
-        const url = [mapping.directory, DefaultTheme.getUrl(reflection) + '.md'].join('/');
+        const url = "api-" + mapping.directory + "-" + DefaultTheme.getUrl(reflection).replace(/\_/g,'-').replace(/-\./g,'-').replace(/^-/,'').replace(/-$/g, '').replace(/-module-/g, '-') + '.md';
         urls.push(new UrlMapping(url, reflection, mapping.template));
         reflection.url = url;
         reflection.hasOwnDocument = true;
@@ -143,7 +145,7 @@ export class MarkdownTheme extends DefaultTheme {
    */
   public isOutputDirectory(outPath: string): boolean {
     const files = fs.readdirSync(outPath);
-    return fs.existsSync(path.join(outPath, 'README.md')) || (files.length === 1 && path.extname(files[0]) === '.md');
+    return fs.existsSync(path.join(outPath, 'api-readme.md')) || (files.length === 1 && path.extname(files[0]) === '.md');
   }
 
   /**
@@ -169,7 +171,7 @@ export class MarkdownTheme extends DefaultTheme {
 
     const context = Object.assign(entryPoint, additionalContext);
 
-    urls.push(new UrlMapping('README.md', context, 'reflection.hbs'));
+    urls.push(new UrlMapping('api-readme.md', context, 'reflection.hbs'));
 
     if (entryPoint.children) {
       entryPoint.children.forEach((child: DeclarationReflection) => {
